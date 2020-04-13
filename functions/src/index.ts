@@ -3,7 +3,7 @@ import * as express from 'express';
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { Container } from './models/container';
-import { getCollection, saveDoc } from './utils/db-tools';
+import { deleteDoc, getCollection, saveDoc } from './utils/db-tools';
 
 if (!admin.apps.length) {
     admin.initializeApp(functions.config().firebase);
@@ -24,6 +24,7 @@ app.post('/containers', async (req, res) => {
             symbol: req.body['symbol'],
             name: req.body['name'],
             capacity: req.body['capacity'],
+            defaultPrice: req.body['defaultPrice'],
             refId: req.body['refId']
         });
         res.status(201).send(result);
@@ -39,6 +40,14 @@ app.get('/containers', async (_, res) => {
     } catch (error) {
         res.status(500).send(error);
     }
+});
+
+app.delete('/containers/:containerId', async (req, res) => {
+    deleteDoc('containers', req.params.containerId)
+        .then(result => res.status(204).send(result))
+        .catch(function(error) {
+            res.status(500).send(error);
+        });
 });
 
 //define google cloud function name

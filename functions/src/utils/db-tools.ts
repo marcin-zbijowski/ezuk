@@ -60,4 +60,16 @@ const saveDoc = async (collection: Collections, doc: Models): Promise<string> =>
     return result;
 };
 
-export { getCollection, saveDoc };
+const deleteDoc = async (collection: Collections, refId: string): Promise<string> => {
+    let result: string;
+    await db
+        .collection(collection)
+        .doc(refId)
+        .delete()
+        .then(() => (result = 'Document successfully deleted!'))
+        .catch(handleError);
+
+    return result;
+};
+
+export { getCollection, saveDoc, deleteDoc };
