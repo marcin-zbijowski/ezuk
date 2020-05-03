@@ -1,25 +1,23 @@
 name: deploy_to_firebase_hosting
 
 on:
-    push:
-        branches:
-            - master
+  push:
+    branches:
+      - master
 
 jobs:
-    deploy_to_firebase_hosting:
-        runs-on: ubuntu-latest
+  deploy_to_firebase_hosting:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout the repository
-            - uses: actions/checkout@master
-            - uses: actions/setup-node@v1
-              with:
-                  node-version: '10.x'
-            - run: npm install
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@master
+        uses: actions/setup-node@v1
+        run: npm install
 
-            - name: Deploy to Firebase
-              uses: w9jds/firebase-action@master
-              with:
-                  args: deploy
-              env:
-                  FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
