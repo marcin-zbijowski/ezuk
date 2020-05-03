@@ -1,4 +1,4 @@
-name: deploy_to_firebase_hosting
+name: Deploy to Firebase Hosting
 
 on:
   push:
@@ -12,10 +12,10 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@master
-      - name: Setup nodejs
+      - name: Setup NodeJS
         uses: actions/setup-node@v1
       - name: Install dependencies
-        run: npm install
+        run: npm install && cd functions && npm install
 
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
