@@ -5,6 +5,10 @@
     "hosting": {
         "predeploy": ["npm run build"],
         "public": "build",
-        "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+        "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+        "rewrites": [
+            { "source": "**", "destination": "/index.html" },
+            { "source": "!**/*.@(json|css|map|jpg|jpeg|gif|png|svg|js)", "destination": "/index.html" }
+        ]
     }
 }
